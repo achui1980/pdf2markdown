@@ -4,3 +4,4 @@
 3. Maskdown的数据通过https://github.com/getomni-ai/zerox这个项目关于node版本的用法生成
 4. 用户可以下载转换后的markdown文件
 5. 我的这个项目可以部署到我的服务器上
+6. @mui/material @emotion/react @emotion/styled @mui/icons-material @mui/lab
