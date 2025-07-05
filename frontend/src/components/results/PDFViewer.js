@@ -16,6 +16,7 @@ import { Document, Page } from 'react-pdf';
 
 const PDFViewer = ({ 
     pdfUrl, 
+    pageNumber,
     numPages, 
     onLoadSuccess, 
     onLoadError,
@@ -45,15 +46,12 @@ const PDFViewer = ({
                         loading={<Typography>正在加载PDF...</Typography>}
                         error={<Typography color="error">PDF加载失败</Typography>}
                     >
-                        {Array.from(new Array(numPages), (el, index) => (
-                            <Page 
-                                key={`page_${index + 1}`} 
-                                pageNumber={index + 1} 
-                                width={width}
-                                renderTextLayer={false}
-                                renderAnnotationLayer={false}
-                            />
-                        ))}
+                        <Page 
+                            pageNumber={pageNumber} 
+                            width={width}
+                            renderTextLayer={false}
+                            renderAnnotationLayer={false}
+                        />
                     </Document>
                 )}
             </CardContent>

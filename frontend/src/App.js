@@ -7,7 +7,9 @@ import {
     AppBar,
     Toolbar,
     Chip,
-    Fab
+    Fab,
+    Button,
+    ButtonGroup
 } from '@mui/material';
 import {
     Transform,
@@ -44,6 +46,7 @@ function App() {
     const [markdown, setMarkdown] = useState('');
     const [pdfUrl, setPdfUrl] = useState('');
     const [numPages, setNumPages] = useState(null);
+    const [pageNumber, setPageNumber] = useState(1);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     const [activeStep, setActiveStep] = useState(0);
@@ -92,6 +95,7 @@ function App() {
     });
 
     const handleFileSelect = (file) => {
+        setPageNumber(1); // Reset page number when new file is selected
         try {
             validatePDFFile(file);
             setPdfFile(file);
@@ -100,6 +104,7 @@ function App() {
             setMarkdown('');
             setPdfUrl('');
             setShowQuickActions(false);
+            setPageNumber(1);
             
             // 显示智能提示
             if (file.size > 10 * 1024 * 1024) {
@@ -194,6 +199,7 @@ function App() {
         setMarkdown('');
         setPdfUrl('');
         setNumPages(null);
+        setPageNumber(1);
         setActiveStep(0);
         setError('');
         setSuccess('');
@@ -351,12 +357,35 @@ function App() {
                                 pdfUrl={pdfUrl}
                                 pdfFile={pdfFile}
                                 numPages={numPages}
+                                pageNumber={pageNumber}
                                 onDocumentLoadSuccess={handleDocumentLoadSuccess}
                                 onDocumentLoadError={handleDocumentLoadError}
                                 onCopyMarkdown={handleCopyMarkdown}
                                 onDownloadMarkdown={handleDownloadMarkdown}
                                 onReset={handleReset}
                             />
+                            
+                            {pdfUrl && numPages && (
+                                <Box textAlign="center" my={2}>
+                                    <ButtonGroup variant="contained" aria-label="pdf-pagination">
+                                        <Button 
+                                            disabled={pageNumber <= 1} 
+                                            onClick={() => setPageNumber(p => p - 1)}
+                                        >
+                                            上一页
+                                        </Button>
+                                        <Button 
+                                            disabled={pageNumber >= numPages} 
+                                            onClick={() => setPageNumber(p => p + 1)}
+                                        >
+                                            下一页
+                                        </Button>
+                                    </ButtonGroup>
+                                    <Typography variant="body1" mt={1}>
+                                        第 {pageNumber} / {numPages} 页
+                                    </Typography>
+                                </Box>
+                            )}
                         </>
                     )}
                     

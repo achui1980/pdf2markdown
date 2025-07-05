@@ -20,6 +20,7 @@ const ResultsView = ({
     markdown, 
     pdfUrl, 
     pdfFile,
+    pageNumber,
     numPages, 
     onDocumentLoadSuccess, 
     onDocumentLoadError,
@@ -47,6 +48,7 @@ const ResultsView = ({
                     <Grid item xs={12} md={viewMode === 'split' ? 6 : 12}>
                         <PDFViewer
                             pdfUrl={pdfUrl}
+                            pageNumber={pageNumber}
                             numPages={numPages}
                             onLoadSuccess={onDocumentLoadSuccess}
                             onLoadError={onDocumentLoadError}
@@ -82,6 +84,7 @@ const ResultsView = ({
                 <DialogContent sx={{ height: '80vh', overflow: 'auto' }}>
                     <PDFViewer
                         pdfUrl={pdfUrl}
+                        pageNumber={pageNumber}
                         numPages={numPages}
                         onLoadSuccess={onDocumentLoadSuccess}
                         onLoadError={onDocumentLoadError}
